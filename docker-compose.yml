@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:15
+    image: postgres:17
     container_name: smartfinance-db
     restart: unless-stopped
     # To be replaced with CI env variables
@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: smartpass
       POSTGRES_DB: smartfinance
     ports:
-      - "5432:5432"
+      - "5000:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
