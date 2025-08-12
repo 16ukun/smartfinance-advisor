@@ -10,7 +10,7 @@ public interface StockService {
 	// I can remove the 'public' and 'abstract' since they are by default in interfaces
 	public abstract Stock createStock(Stock stock);
 	public abstract List<Stock> getAllStock();
-	public abstract Optional<Stock> getStockBySymbol();
-	public abstract Stock updateStock();
-	public abstract void deleteStock();
+	public abstract Optional<Stock> getStockBySymbol(String symbol);
+	public abstract Stock updateStock(String symbol, Stock updatedStock);
+	public abstract void deleteStock(String symbol);
 }
