@@ -28,26 +28,37 @@ public class StockServiceImplementation implements StockService {
 
 	@Override
 	public List<Stock> getAllStock() {
-		// TODO Auto-generated method stub
-		return null;
+		return stockRepository.findAll();
 	}
 
 	@Override
-	public Optional<Stock> getStockBySymbol() {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<Stock> getStockBySymbol(String symbol) {
+		 return stockRepository.findById(symbol);
 	}
 
-	@Override
-	public Stock updateStock() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Stock updateStock(String symbol, Stock updatedStock) {
+        Optional<Stock> optionalStock = stockRepository.findById(symbol);
 
-	@Override
-	public void deleteStock() {
-		// TODO Auto-generated method stub
+        if (optionalStock.isEmpty()) {
+            throw new RuntimeException("Stock not found");
+        }
 
-	}
+        Stock existing = optionalStock.get();
+        
+        existing.setName(updatedStock.getName());
+        existing.setExchange(updatedStock.getExchange());
+        existing.setSector(updatedStock.getSector());
+        existing.setLatestPrice(updatedStock.getLatestPrice());
+        existing.setPeRatio(updatedStock.getPeRatio());
+        existing.setMarketCap(updatedStock.getMarketCap());
+        
+        return stockRepository.save(existing);
+    }
+
+    @Override
+    public void deleteStock(String symbol) {
+        stockRepository.deleteById(symbol);
+    }
 
 }
